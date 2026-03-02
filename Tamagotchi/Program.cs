@@ -1,4 +1,6 @@
 ﻿//-- Variables
+Pet pet = new Pet();
+Random random = new Random();
 
 //-- Functions
 
@@ -31,3 +33,42 @@ string WaitForInput()
 //-- Runtime
 
 //-- Classes
+
+class Pet
+{
+    // Stats
+    public float food = 100f;
+    public float mood = 100f;
+    public float energy = 100f;
+    public int age = 0;
+    public float money = 50f;
+
+    // Multipliers
+    public float moneyMultiplier = 1f;
+    public float energyMultiplier = 1f;
+    public float foodMultiplier = 1f;
+
+    // Methods
+    public void changeFood(int value)
+    {
+        food += value;
+    }
+
+    public void changeMood(int value)
+    {
+        mood += value;
+    }
+
+    public void changeEnergy(int value)
+    {
+        energy += value;
+    }
+
+    public void nextDay()
+    {
+        age++;
+        energy -= 20;
+        food -= 20;
+        mood -= 20;
+    }
+}
