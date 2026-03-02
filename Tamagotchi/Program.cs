@@ -32,10 +32,13 @@ string WaitForInput()
 
 void StartGame()
 {
-    
+    while (true){
+        WaitForInput();
+    }
 }
 
 //-- Runtime
+StartGame();
 
 //-- Classes
 
