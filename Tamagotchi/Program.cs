@@ -30,6 +30,11 @@ string WaitForInput()
     return inputedString;
 }
 
+void StartGame()
+{
+    
+}
+
 //-- Runtime
 
 //-- Classes
@@ -49,22 +54,22 @@ class Pet
     public float foodMultiplier = 1f;
 
     // Methods
-    public void changeFood(int value)
+    public void ChangeFood(int value)
     {
         food += value;
     }
 
-    public void changeMood(int value)
+    public void ChangeMood(int value)
     {
         mood += value;
     }
 
-    public void changeEnergy(int value)
+    public void ChangeEnergy(int value)
     {
         energy += value;
     }
 
-    public void nextDay()
+    public void NextDay()
     {
         age++;
         energy -= 20;
