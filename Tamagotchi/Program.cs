@@ -32,9 +32,31 @@ string WaitForInput()
 
 void StartGame()
 {
+    Console.Clear();
+    Console.WriteLine("Let's start by giving your new friend a name!");
+    pet.name = WaitForInput();
+
+    Console.Clear();
+    Console.WriteLine($"{pet.name}... What a great name!");
+    PressAnyKey();
+
+    Console.Clear();
+    Console.WriteLine($"You will need to take care of {pet.name}. Make sure he doesn't die, and make sure they have fun!");
+    PressAnyKey();
+
+    Console.Clear();
+    Console.WriteLine("Now let's get into it.");
+    PressAnyKey();
+
     while (true){
+        ShowMainMenu();
         WaitForInput();
     }
+}
+
+void ShowMainMenu(){
+    Console.Clear();
+    Console.WriteLine($"");
 }
 
 //-- Runtime
@@ -50,6 +72,7 @@ class Pet
     public float energy = 100f;
     public float money = 50f;
     public int age = 0;
+    public string name = "John";
 
     // Multipliers
     public float moneyMultiplier = 1f;
