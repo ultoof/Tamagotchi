@@ -48,8 +48,8 @@ class Pet
     public float food = 100f;
     public float mood = 100f;
     public float energy = 100f;
-    public int age = 0;
     public float money = 50f;
+    public int age = 0;
 
     // Multipliers
     public float moneyMultiplier = 1f;
@@ -75,8 +75,8 @@ class Pet
     public void NextDay()
     {
         age++;
-        energy -= 20;
-        food -= 20;
-        mood -= 20;
+        energy -= 20 * (1 + age/10);
+        food -= 20 * (1 + age/10);
+        mood -= 20 * (1 + age/10);
     }
 }
