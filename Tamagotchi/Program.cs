@@ -54,9 +54,18 @@ void StartGame()
     }
 }
 
-void ShowMainMenu(){
+void ShowMainMenu()
+{
     Console.Clear();
-    Console.WriteLine($"");
+    string moodText = pet.mood >= 50 ? "Happy" : "Sad";
+    string energyText = pet.energy >= 50 ? "Energetic" : "Tired";
+    string foodText = pet.food >= 50 ? "Satiated" : "Hungry";
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.Write($"Here are {pet.name}'s stats:");
+    Console.ForegroundColor = ConsoleColor.White;
+    Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood} ({moodText})\nEnergy: {pet.energy} ({energyText})\nFood: {pet.food} ({foodText})");
+    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work");
 }
 
 //-- Runtime
@@ -83,16 +92,19 @@ class Pet
     public void ChangeFood(int value)
     {
         food += value;
+        food = Math.Clamp(food, 0, 100);
     }
 
     public void ChangeMood(int value)
     {
         mood += value;
+        mood = Math.Clamp(mood, 0, 100);
     }
 
     public void ChangeEnergy(int value)
     {
         energy += value;
+        energy = Math.Clamp(energy, 0, 100);
     }
 
     public void NextDay()
