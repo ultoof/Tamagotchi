@@ -56,10 +56,11 @@ void StartGame()
 
 void ShowMainMenu()
 {
-    Console.Clear();
     string moodText = pet.mood >= 50 ? "Happy" : "Sad";
     string energyText = pet.energy >= 50 ? "Energetic" : "Tired";
     string foodText = pet.food >= 50 ? "Satiated" : "Hungry";
+
+    Console.Clear();
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write($"Here are {pet.name}'s stats:");
     Console.ForegroundColor = ConsoleColor.White;
@@ -72,7 +73,6 @@ void ShowMainMenu()
 StartGame();
 
 //-- Classes
-
 class Pet
 {
     // Stats
