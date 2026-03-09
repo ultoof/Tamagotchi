@@ -30,6 +30,7 @@ string WaitForInput()
     return inputedString;
 }
 
+// Starts the game loop + opening cutscene
 void StartGame()
 {
     Console.Clear();
@@ -54,6 +55,7 @@ void StartGame()
     }
 }
 
+// Shows the main menu which displays alot of stats about the pet
 void ShowMainMenu()
 {
     string moodText = pet.mood >= 50 ? "Happy" : "Sad";
