@@ -1,4 +1,6 @@
 ﻿//-- Variables
+using System.Diagnostics;
+
 Pet pet = new Pet();
 Random random = new Random();
 
@@ -42,11 +44,11 @@ void StartGame()
     PressAnyKey();
 
     Console.Clear();
-    Console.WriteLine($"You will need to take care of {pet.name}. Make sure he doesn't die, and make sure they have fun!");
+    Console.WriteLine($"You will need to take care of {pet.name}. Make sure they don't die and stuff, and make sure they have fun!");
     PressAnyKey();
 
     Console.Clear();
-    Console.WriteLine("Now let's get into it.");
+    Console.WriteLine("Now let's get into it...");
     PressAnyKey();
 
     while (true){
@@ -67,7 +69,7 @@ void ShowMainMenu()
     Console.Write($"Here are {pet.name}'s stats:");
     Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood} ({moodText})\nEnergy: {pet.energy} ({energyText})\nFood: {pet.food} ({foodText})");
-    Console.ForegroundColor = ConsoleColor.DarkBlue;
+    Console.ForegroundColor = ConsoleColor.Blue;
     Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work");
 }
 
