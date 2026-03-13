@@ -10,8 +10,10 @@ Random random = new Random();
 // Prompts the user to press anykey and waits using ReadKey().
 void PressAnyKey()
 {
-    Console.Write("\n> Press any key:");
+    Console.ForegroundColor = ConsoleColor.Gray;
+    Console.Write("\n> Press any key: ");
     Console.ReadKey();
+    Console.ForegroundColor = ConsoleColor.White;
 }
 
 // A method thats used when the user inputs something invalid.
@@ -51,8 +53,41 @@ void ShowMainMenu()
     Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work\n[5] Exit Game");
 }
 
-// Starts the game loop + opening cutscene
-void StartGame()
+// Show the exit tab
+void ExitGame()
+{
+    while (true)
+    {
+        Console.Clear();
+        Console.WriteLine("Do you want to save your data? [y/n]");
+        string input = WaitForInput().ToLower();
+
+        if (input == "y")
+        {
+            string ConvertedData = JsonConvert.SerializeObject(pet);
+            File.WriteAllText("Data", ConvertedData);
+
+            Console.Clear();
+            Console.WriteLine("Data Saved!");
+            PressAnyKey();
+            break;
+        }
+        else if (input == "n")
+        {
+            Console.Clear();
+            Console.WriteLine("Data has not been saved.");
+            PressAnyKey();
+            break;
+        }
+        else
+        {
+            ShowInvalidInput();
+        }
+    }
+    Console.Clear();
+}
+
+void Opening()
 {
     Console.Clear();
     Console.WriteLine("Let's start by giving your new friend a name!");
@@ -69,6 +104,45 @@ void StartGame()
     Console.Clear();
     Console.WriteLine("Now let's get into it...");
     PressAnyKey();
+}
+
+// Starts the game loop + opening cutscene
+void StartGame()
+{
+    if (File.Exists("Data"))
+    {
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Existing game data found. Do you want to load it? [y/n]");
+            string input = WaitForInput().ToLower();
+
+            if (input == "y")
+            {
+                string Data = File.ReadAllText("Data");
+                pet = JsonConvert.DeserializeObject<Pet>(Data);
+
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"Your tamagotchi {pet.name} has been loaded!");
+                PressAnyKey();
+                break;
+            }
+            else if (input == "n")
+            {
+                Opening();
+                break;
+            }
+            else
+            {
+                ShowInvalidInput();
+            }
+        }
+    }
+    else
+    {
+        Opening();
+    }
 
     while (true)
     {
@@ -86,7 +160,8 @@ void StartGame()
             case "4":
                 break;
             case "5":
-                break;
+                ExitGame();
+                return;
             default:
                 ShowInvalidInput();
                 break;

@@ -13,3 +13,6 @@ C:\Development\VSProjects\Tamagotchi\Tamagotchi\obj\Debug\net9.0\refint\Tamagotc
 C:\Development\VSProjects\Tamagotchi\Tamagotchi\obj\Debug\net9.0\Tamagotchi.pdb
 C:\Development\VSProjects\Tamagotchi\Tamagotchi\obj\Debug\net9.0\Tamagotchi.genruntimeconfig.cache
 C:\Development\VSProjects\Tamagotchi\Tamagotchi\obj\Debug\net9.0\ref\Tamagotchi.dll
+C:\Development\VSProjects\Tamagotchi\Tamagotchi\bin\Debug\net9.0\Newtonsoft.Json.dll
+C:\Development\VSProjects\Tamagotchi\Tamagotchi\obj\Debug\net9.0\Tamagotchi.csproj.AssemblyReference.cache
+C:\Development\VSProjects\Tamagotchi\Tamagotchi\obj\Debug\net9.0\Tamagotchi.csproj.Up2Date
