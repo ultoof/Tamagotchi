@@ -1,6 +1,7 @@
-﻿//-- Variables
-using System.Diagnostics;
+﻿
+using Newtonsoft.Json;
 
+//-- Variables
 Pet pet = new Pet();
 Random random = new Random();
 
@@ -17,7 +18,9 @@ void PressAnyKey()
 void ShowInvalidInput()
 {
     Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Red;
     Console.WriteLine("Invalid Input, Press any key");
+    Console.ForegroundColor = ConsoleColor.White;
     Console.ReadKey();
 }
 
@@ -30,31 +33,6 @@ string WaitForInput()
     string inputedString = Console.ReadLine();
     Console.ForegroundColor = ConsoleColor.White;
     return inputedString;
-}
-
-// Starts the game loop + opening cutscene
-void StartGame()
-{
-    Console.Clear();
-    Console.WriteLine("Let's start by giving your new friend a name!");
-    pet.name = WaitForInput();
-
-    Console.Clear();
-    Console.WriteLine($"{pet.name}... What a great name!");
-    PressAnyKey();
-
-    Console.Clear();
-    Console.WriteLine($"You will need to take care of {pet.name}. Make sure they don't die and stuff, and make sure they have fun!");
-    PressAnyKey();
-
-    Console.Clear();
-    Console.WriteLine("Now let's get into it...");
-    PressAnyKey();
-
-    while (true){
-        ShowMainMenu();
-        WaitForInput();
-    }
 }
 
 // Shows the main menu which displays alot of stats about the pet
@@ -70,7 +48,50 @@ void ShowMainMenu()
     Console.ForegroundColor = ConsoleColor.White;
     Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood} ({moodText})\nEnergy: {pet.energy} ({energyText})\nFood: {pet.food} ({foodText})");
     Console.ForegroundColor = ConsoleColor.Blue;
-    Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work");
+    Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work\n[5] Exit Game");
+}
+
+// Starts the game loop + opening cutscene
+void StartGame()
+{
+    Console.Clear();
+    Console.WriteLine("Let's start by giving your new friend a name!");
+    pet.name = WaitForInput();
+
+    Console.Clear();
+    Console.WriteLine($"{pet.name}... What a great name!");
+    PressAnyKey();
+
+    Console.Clear();
+    Console.WriteLine($"You will need to take care of {pet.name}. So they don't die and stuff, and make sure they have fun!");
+    PressAnyKey();
+
+    Console.Clear();
+    Console.WriteLine("Now let's get into it...");
+    PressAnyKey();
+
+    while (true)
+    {
+        ShowMainMenu();
+        string input = WaitForInput();
+
+        switch (input)
+        {
+            case "1":
+                break;
+            case "2":
+                break;
+            case "3":
+                break;
+            case "4":
+                break;
+            case "5":
+                break;
+            default:
+                ShowInvalidInput();
+                break;
+        }
+    }
 }
 
 //-- Runtime
