@@ -46,9 +46,9 @@ void ShowMainMenu()
 
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.Write($"Here are {pet.name}'s stats:");
+    Console.Write($"Here are '{pet.name}'s stats:");
     Console.ForegroundColor = ConsoleColor.White;
-    Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood} ({moodText})\nEnergy: {pet.energy} ({energyText})\nFood: {pet.food} ({foodText})");
+    Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood} ({moodText})\nEnergy: {pet.energy} ({energyText})\nFood: {pet.food} ({foodText})\nStatus Effects: None");
     Console.ForegroundColor = ConsoleColor.Blue;
     Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work\n[5] Exit Game");
 }
@@ -87,6 +87,7 @@ void ExitGame()
     Console.Clear();
 }
 
+// Opening scene for naming the tamagotchi
 void Opening()
 {
     Console.Clear();
@@ -104,6 +105,11 @@ void Opening()
     Console.Clear();
     Console.WriteLine("Now let's get into it...");
     PressAnyKey();
+}
+
+void Shop()
+{
+    Console.Clear();
 }
 
 // Starts the game loop + opening cutscene
@@ -156,6 +162,7 @@ void StartGame()
             case "2":
                 break;
             case "3":
+                Shop();
                 break;
             case "4":
                 break;
