@@ -131,7 +131,7 @@ void StartGame()
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine($"Your tamagotchi {pet.name} has been loaded!");
+                Console.WriteLine($"Your tamagotchi '{pet.name}' has been loaded!");
                 PressAnyKey();
                 break;
             }
