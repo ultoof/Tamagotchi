@@ -21,7 +21,7 @@ void ShowInvalidInput()
 {
     Console.Clear();
     Console.ForegroundColor = ConsoleColor.Red;
-    Console.WriteLine("Invalid Input, Press any key");
+    Console.Write("Invalid Input, Press any key: ");
     Console.ForegroundColor = ConsoleColor.White;
     Console.ReadKey();
 }
@@ -107,6 +107,7 @@ void Opening()
     PressAnyKey();
 }
 
+// The shop scene and logic
 void Shop()
 {
     Console.Clear();
