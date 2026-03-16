@@ -189,6 +189,7 @@ class Pet
     public float energy = 100f;
     public float money = 50f;
     public int age = 0;
+    public int difficulty = 10;
     public string name = "John";
 
     // Multipliers
@@ -218,8 +219,8 @@ class Pet
     public void NextDay()
     {
         age++;
-        energy -= 20 * (1 + age/10);
-        food -= 20 * (1 + age/10);
-        mood -= 20 * (1 + age/10);
+        energy -= 20 * (1 + age/difficulty);
+        food -= 20 * (1 + age/difficulty);
+        mood -= 20 * (1 + age/difficulty);
     }
 }
