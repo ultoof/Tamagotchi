@@ -1,4 +1,5 @@
 ﻿
+using System.Runtime.CompilerServices;
 using Newtonsoft.Json;
 
 //-- Variables
@@ -26,6 +27,14 @@ void ShowInvalidInput()
     Console.ReadKey();
 }
 
+void ShowNotEnoughMoney()
+{
+    Console.Clear();
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine("You don't have enough money for this.");
+    PressAnyKey();
+}
+
 // Waits for a user input with some fancy colors.
 string WaitForInput()
 {
@@ -48,7 +57,7 @@ void ShowMainMenu()
     Console.ForegroundColor = ConsoleColor.Yellow;
     Console.Write($"Here are '{pet.name}'s stats:");
     Console.ForegroundColor = ConsoleColor.White;
-    Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood} ({moodText})\nEnergy: {pet.energy} ({energyText})\nFood: {pet.food} ({foodText})\nStatus Effects: None");
+    Console.WriteLine($"\n\nName: '{pet.name}'\nAge: {pet.age} days\nMoney: {pet.money}$\nMood: {pet.mood}/100 ({moodText})\nEnergy: {pet.energy}/100 ({energyText})\nFood: {pet.food}/100 ({foodText})\nStatus Effects: None");
     Console.ForegroundColor = ConsoleColor.Blue;
     Console.WriteLine("\nHere are the actions you can take:\n\n[1] Play\n[2] Feed\n[3] Shop\n[4] Work\n[5] Exit Game");
 }
@@ -110,7 +119,111 @@ void Opening()
 // The shop scene and logic
 void Shop()
 {
-    Console.Clear();
+    while (true)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        Console.WriteLine($"Shop:\nHere are the items you can purchase:\n\nCurrent Money: {pet.money}$\n");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine("[1] 50$ - Magical Potion of Wonderous Joy (+25 Mood)\n[2] 25$ - Sugar Cane (+15 Energy)\n[3] 500$ - Big Money Plans (2x Money Multiplier)\n[4] 500$ - Narcolepsy (2x Energy Multiplier)\n[5] 500$ - Deepwoken Carnivore (2x Food Multiplier)");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("[6] Return To Menu");
+
+        string input = WaitForInput();
+        switch (input)
+        {
+            case "1":
+                if (pet.money >= 50)
+                {
+                    pet.money -= 50;
+                    pet.ChangeMood(25);
+                }
+                else
+                {
+                    ShowNotEnoughMoney();
+                }
+                break;
+            case "2":
+                if (pet.money >= 25)
+                {
+                    pet.money -= 25;
+                    pet.ChangeEnergy(15);
+                }
+                else
+                {
+                    ShowNotEnoughMoney();
+                }
+                break;
+            case "3":
+                if (pet.moneyMultiplier == 2)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("This upgrade is sold out :(");
+                    PressAnyKey();
+                }
+                else if (pet.money >= 500)
+                {
+                    pet.moneyMultiplier = 2;
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{pet.name} now gains 2x the money");
+                    PressAnyKey();
+                }
+                else
+                {
+                    ShowNotEnoughMoney();
+                }
+                break;
+            case "4":
+                if (pet.energyMultiplier == 2)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("This upgrade is sold out :(");
+                    PressAnyKey();
+                }
+                else if (pet.money >= 500)
+                {
+                    pet.energyMultiplier = 2;
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{pet.name} now gains 2x the energy");
+                    PressAnyKey();
+                }
+                else
+                {
+                    ShowNotEnoughMoney();
+                }
+                break;
+            case "5":
+                if (pet.foodMultiplier == 2)
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("This upgrade is sold out :(");
+                    PressAnyKey();
+                }
+                else if (pet.money >= 500)
+                {
+                    pet.foodMultiplier = 2;
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"{pet.name} now gains 2x the food");
+                    PressAnyKey();
+                }
+                else
+                {
+                    ShowNotEnoughMoney();
+                }
+                break;
+            case "6":
+                return;
+            default:
+                ShowInvalidInput();
+                break;
+        }
+    }
 }
 
 // Starts the game loop + opening cutscene
@@ -200,27 +313,61 @@ class Pet
     // Methods
     public void ChangeFood(int value)
     {
-        food += value;
+        ConsoleColor color = value >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
+        float newMulti = value >= 0 ? foodMultiplier : 1;
+
+        food += value*newMulti;
         food = Math.Clamp(food, 0, 100);
+        Console.Clear();
+        Console.ForegroundColor = color;
+        Console.WriteLine($"{name}'s food changed by {value*newMulti}. Food is now {food}.");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("\n> Press any key: ");
+        Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.White;
     }
 
     public void ChangeMood(int value)
     {
+        ConsoleColor color = value >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
+
         mood += value;
         mood = Math.Clamp(mood, 0, 100);
+        Console.Clear();
+        Console.ForegroundColor = color;
+        Console.WriteLine($"{name}'s mood changed by {value}. Mood is now {mood}.");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("\n> Press any key: ");
+        Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.White;
     }
 
     public void ChangeEnergy(int value)
     {
-        energy += value;
+        ConsoleColor color = value >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
+        float newMulti = value >= 0 ? energyMultiplier : 1;
+
+        energy += value*newMulti;
         energy = Math.Clamp(energy, 0, 100);
+        Console.Clear();
+        Console.ForegroundColor = color;
+        Console.WriteLine($"{name}'s energy changed by {value*newMulti}. Energy is now {energy}.");
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("\n> Press any key: ");
+        Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+
+    public void ChangeMoney(int value)
+    {
+        money += money * moneyMultiplier;
     }
 
     public void NextDay()
     {
         age++;
-        energy -= 20 * (1 + age/difficulty);
-        food -= 20 * (1 + age/difficulty);
-        mood -= 20 * (1 + age/difficulty);
+        energy -= 20 * (1 + age / difficulty);
+        food -= 20 * (1 + age / difficulty);
+        mood -= 20 * (1 + age / difficulty);
     }
 }
