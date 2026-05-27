@@ -100,7 +100,7 @@ void ExitGame()
 void Opening()
 {
     Console.Clear();
-    Console.WriteLine("Let's start by giving your new friend a name!");
+    Console.WriteLine("A cat magically appears in front of you! Give it a name...");
     pet.name = WaitForInput();
 
     Console.Clear();
@@ -125,7 +125,7 @@ void Shop()
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine($"Shop:\nHere are the items you can purchase:\n\nCurrent Money: {pet.money}$\n{pet.energy}/100 Energy\n{pet.food}/100 Food\n{pet.mood}/100 Mood\n");
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"[1] 50$ - Magical Potion of Wonderous Joy (+25 Mood)\n[2] 25$ - Sugar Cane (+{15 * pet.energyMultiplier} Energy)\n[3] 500$ - Big Money Plans (2x Money Multiplier)\n[4] 500$ - Narcolepsy (2x Energy Multiplier)\n[5] 500$ - True Glutton (2x Food Multiplier)");
+        Console.WriteLine($"[1] 50$ - Magical Potion of Wonderous Joy (+25 Mood)\n[2] 25$ - Sugar Cane (+{15 * pet.energyMultiplier} Energy)\n[3] 500$ - Big Money Plans (2x Money Multiplier)\n[4] 500$ - Sleepy Cat Syndrome (2x Energy Multiplier)\n[5] 500$ - True Glutton Cat (2x Food Multiplier)");
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("[6] Return To Menu");
 
@@ -311,27 +311,34 @@ void StartGame()
 
     while (true)
     {
-        ShowMainMenu();
-        string input = WaitForInput();
-
-        switch (input)
+        if (pet.dead)
         {
-            case "1":
-                break;
-            case "2":
-                break;
-            case "3":
-                Shop();
-                break;
-            case "4":
-                Work();
-                break;
-            case "5":
-                ExitGame();
-                return;
-            default:
-                ShowInvalidInput();
-                break;
+            break;
+        }
+        else
+        {
+            ShowMainMenu();
+            string input = WaitForInput();
+
+            switch (input)
+            {
+                case "1":
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    Shop();
+                    break;
+                case "4":
+                    Work();
+                    break;
+                case "5":
+                    ExitGame();
+                    return;
+                default:
+                    ShowInvalidInput();
+                    break;
+            }
         }
     }
 }

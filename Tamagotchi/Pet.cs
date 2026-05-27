@@ -10,6 +10,7 @@ class Pet
     public int age = 0;
     public int difficulty = 10;
     public string name = "John";
+    public bool dead = false;
 
     // Multipliers
     public float moneyMultiplier = 1f;
@@ -17,6 +18,18 @@ class Pet
     public float foodMultiplier = 1f;
 
     // Methods
+    private void Die(string deathMessage)
+    {
+        dead = true;
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine(deathMessage);
+        Console.ForegroundColor = ConsoleColor.Gray;
+        Console.Write("\n> Press any key: ");
+        Console.ReadKey();
+        Console.ForegroundColor = ConsoleColor.White;
+    }
+
     public void ChangeFood(float value)
     {
         ConsoleColor color = value >= 0 ? ConsoleColor.Green : ConsoleColor.Red;
@@ -92,5 +105,18 @@ class Pet
         Console.ForegroundColor = ConsoleColor.White;
     
         ChangeFood(MathF.Round(-Math.Clamp(20f * (1 + age / 100),0f,50f)));
+
+        if (food <= 0)
+        {   
+            Die($"{name} has died to starvation... what a glutenous cat >:(\nYour pet has died due to having no food");
+        }
+        else if (energy <= 0)
+        {
+            Die($"{name} became very tired and decided to go to permanent sleep (die)\nYour pet has died due to lack of energy");
+        }
+        else if (mood <= 0)
+        {
+            Die($"{name} gave you a sour face, and ran away. Never to be seen again...\nYour pet has died due to low mood");    
+        }
     }
 }
