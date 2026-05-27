@@ -229,6 +229,7 @@ void Shop()
     }
 }
 
+// The work scene and logic
 void Work()
 {
     while (true)
@@ -262,6 +263,68 @@ void Work()
                 pet.ChangeEnergy(-50);
                 pet.NextDay();
                 return;
+            case "4":
+                return;
+            default:
+                ShowInvalidInput();
+                break;
+        }
+    }
+}
+
+// The feed scene and logic
+void Feed()
+{
+    while (true)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine($"Feed:\nHere are the foods you can give to {pet.name}:\n\nCurrent Money: {pet.money}$\n{pet.energy}/100 Energy\n{pet.food}/100 Food\n{pet.mood}/100 Mood\n");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"[1] Fish On A Stick({15 * pet.foodMultiplier} Food, -25$)\n[2] Big Fish Burger Pro Max({30 * pet.foodMultiplier} Food, -50$)\n[3] TITANIC QUADRA FISH SPECIAL({50 * pet.foodMultiplier} Food, -100$)");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("[4] Return To Menu");
+
+        string input = WaitForInput();
+
+        switch (input)
+        {
+            case "1":
+                if (pet.money >= 25)
+                {
+                    pet.money -= 25;
+                    pet.ChangeFood(15);
+                    break;
+                }
+                else
+                {
+                    ShowInvalidInput();
+                    break;
+                }
+            case "2":
+                if (pet.money >= 50)
+                {
+                    pet.money -= 50;
+                    pet.ChangeFood(30);
+                    break;
+                }
+                else
+                {
+                    ShowInvalidInput();
+                    break;
+                }
+            case "3":
+                if (pet.money >= 100)
+                {
+                    pet.money -= 100;
+                    pet.ChangeFood(50);
+                    break;
+                }
+                else
+                {
+                    ShowInvalidInput();
+                    break;
+                }
             case "4":
                 return;
             default:
@@ -325,6 +388,7 @@ void StartGame()
                 case "1":
                     break;
                 case "2":
+                    Feed();
                     break;
                 case "3":
                     Shop();
