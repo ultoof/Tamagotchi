@@ -1,5 +1,7 @@
 namespace PetLibrary;
 
+// This is the class for the pet
+// The pet has multiple stats, methods and logic checks. To make sure nothing breaks!
 class Pet
 {
     // Stats
