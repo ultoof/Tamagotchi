@@ -272,7 +272,7 @@ void Work()
     }
 }
 
-// The feed scene and logic
+// The food scene and logic
 void Feed()
 {
     while (true)
@@ -334,6 +334,7 @@ void Feed()
     }
 }
 
+// The play scene and logic
 void Play()
 {
     while (true)
