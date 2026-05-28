@@ -381,6 +381,7 @@ void Play()
 }
 
 // Starts the game loop + opening cutscene. Also checks if the player has died at the end of every turn. Also autosaves at the start of each day if the pet is not dead.
+// Also checks if save data is corrupted/exists
 void StartGame()
 {
     if (File.Exists("Data"))
@@ -394,7 +395,19 @@ void StartGame()
             if (input == "y")
             {
                 string Data = File.ReadAllText("Data");
-                pet = JsonConvert.DeserializeObject<Pet>(Data);
+
+                if (!string.IsNullOrEmpty(Data))
+                {
+                    pet = JsonConvert.DeserializeObject<Pet>(Data);
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Your data could not be loaded, it is likely corrupted. Starting a new save file instead...");
+                    PressAnyKey();
+                    Opening();
+                }
 
                 Console.Clear();
                 Console.ForegroundColor = ConsoleColor.Green;
