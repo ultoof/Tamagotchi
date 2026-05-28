@@ -229,7 +229,7 @@ void Shop()
     }
 }
 
-// The work scene and logic
+// The work scene and logic, these advance the game by 1 day.
 void Work()
 {
     while (true)
@@ -281,7 +281,7 @@ void Feed()
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine($"Feed:\nHere are the foods you can give to {pet.name}:\n\nCurrent Money: {pet.money}$\n{pet.energy}/100 Energy\n{pet.food}/100 Food\n{pet.mood}/100 Mood\n");
         Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine($"[1] Fish On A Stick({15 * pet.foodMultiplier} Food, -25$)\n[2] Big Fish Burger Pro Max({30 * pet.foodMultiplier} Food, -50$)\n[3] TITANIC QUADRA FISH SPECIAL({50 * pet.foodMultiplier} Food, -100$)");
+        Console.WriteLine($"[1] Fish On A Stick (+{15 * pet.foodMultiplier} Food, -25$)\n[2] Big Fish Burger Pro Max (+{30 * pet.foodMultiplier} Food, -50$)\n[3] TITANIC QUADRA FISH SPECIAL (+{50 * pet.foodMultiplier} Food, -100$)");
         Console.ForegroundColor = ConsoleColor.Red;
         Console.WriteLine("[4] Return To Menu");
 
@@ -334,7 +334,53 @@ void Feed()
     }
 }
 
-// Starts the game loop + opening cutscene
+void Play()
+{
+    while (true)
+    {
+        Console.Clear();
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine($"Feed:\nHere are the activities you can do with {pet.name}:\n\nCurrent Money: {pet.money}$\n{pet.energy}/100 Energy\n{pet.food}/100 Food\n{pet.mood}/100 Mood\n");
+        Console.ForegroundColor = ConsoleColor.Blue;
+        Console.WriteLine($"[1] Pet {pet.name} (+20 Mood, -20 Energy)\n[2] Fish Fetch (+20 Mood, +{15 * pet.foodMultiplier}, -20 Energy, -25$)\n[3] Cat Car Driving Practice (+50 Mood, -40 Energy, 50% Chance of -50$)");
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("[4] Return To Menu");
+
+        string input = WaitForInput();
+
+        switch (input)
+        {
+            case "1":
+                pet.ChangeMood(20);
+                pet.ChangeEnergy(-20);
+                pet.NextDay();
+                return;
+            case "2":
+                pet.ChangeMood(20);
+                pet.ChangeFood(15);
+                pet.ChangeEnergy(-20);
+                pet.ChangeMoney(-25);
+                pet.NextDay();
+                return;
+            case "3":
+                // Checks for 50% change of money loss
+                int rng = random.Next(1,2);
+                if (rng == 1){pet.ChangeMoney(-50);}
+
+                pet.ChangeMood(50);
+                pet.ChangeEnergy(-40);
+                pet.NextDay();
+                return;
+            case "4":
+                return;
+            default:
+                ShowInvalidInput();
+                break;
+        }
+    }
+}
+
+// Starts the game loop + opening cutscene. Also checks if the player has died at the end of every turn. Also autosaves at the start of each day if the pet is not dead.
 void StartGame()
 {
     if (File.Exists("Data"))
@@ -380,12 +426,15 @@ void StartGame()
         }
         else
         {
+            string ConvertedData = JsonConvert.SerializeObject(pet);
+            File.WriteAllText("Data", ConvertedData);
             ShowMainMenu();
             string input = WaitForInput();
 
             switch (input)
             {
                 case "1":
+                    Play();
                     break;
                 case "2":
                     Feed();
