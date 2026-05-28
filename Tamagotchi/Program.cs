@@ -74,7 +74,7 @@ void ExitGame()
         if (input == "y")
         {
             string ConvertedData = JsonConvert.SerializeObject(pet);
-            File.WriteAllText("Data", ConvertedData);
+            File.WriteAllText("Data.json", ConvertedData);
 
             Console.Clear();
             Console.WriteLine("Data Saved!");
@@ -384,7 +384,7 @@ void Play()
 // Also checks if save data is corrupted/exists
 void StartGame()
 {
-    if (File.Exists("Data"))
+    if (File.Exists("Data.json"))
     {
         while (true)
         {
@@ -394,7 +394,7 @@ void StartGame()
 
             if (input == "y")
             {
-                string Data = File.ReadAllText("Data");
+                string Data = File.ReadAllText("Data.json");
 
                 if (!string.IsNullOrEmpty(Data))
                 {
@@ -440,7 +440,7 @@ void StartGame()
         else
         {
             string ConvertedData = JsonConvert.SerializeObject(pet);
-            File.WriteAllText("Data", ConvertedData);
+            File.WriteAllText("Data.json", ConvertedData);
             ShowMainMenu();
             string input = WaitForInput();
 
